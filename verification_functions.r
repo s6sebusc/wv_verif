@@ -20,6 +20,11 @@ cdd_centre <- function( cd # output of cddews / mycddews
     cen <- DBcentres[[ paste0("N",N) ]][[ cd$family ]][[ cd$filter.number ]]
     dx <- N/2 - cen$x
     dy <- N/2 - cen$y
+    
+    if( length(dx)==0 | length(dy)==0 ){
+        stop( paste0( "you forgot to calculate the shifts for N=", N ) )
+    }
+    
     for( j in 1:dim(S)[1] ) S[j,,] <- shiftmat( S[j,,], dx=dx[j], dy=dy[j] )
     cd$S <- S
     return( cd )
