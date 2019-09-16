@@ -5,15 +5,15 @@ require( "SpatialVx" )
 # load the data, take the logarithm, transform
 data( obs0513 )
 N <- 1024
-J <- log2( N )
+J <- 7
 data( ICPg240Locs )
 lon  <- ICPg240Locs[,1] 
 lat  <- ICPg240Locs[,2]
 rain <- log2( obs0513 + 2**-3 )
-S    <- fld2S( rain, N=N)
+S    <- fld2S( rain, N=N, scales=1:J, smooth=FALSE, rsm=5)
 
 # average over directions, remove negative values
-S   <- ( S[ 1:(J-1),, ] + S[ 1:(J-1)+J,, ] + S[ 1:(J-1)+2*J,, ] )/3
+S   <- ( S[ 1:J,, ] + S[ 1:J+J,, ] + S[ 1:J+2*J,, ] )/3
 S   <- S*1*(S>0)
 
 # get map of scales, only show pixels with rain

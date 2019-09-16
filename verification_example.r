@@ -19,7 +19,7 @@ for( i in 1:nt ){
 
 # do the transform, average over space and direction, remove negative energy, normalize
 getmeanspec <- function( x ){
-    res <- rowMeans( fld2S( x, fam="DaubLeAsymm", filnum=4, smooth=FALSE ) )
+    res <- rowMeans( fld2S( x, fam="DaubLeAsymm", filnum=4, smooth=FALSE , scales=1:J) )
     res <- ( res[1:J] + res[1:J+J] + res[1:J+2*J] )/3 
     res <- res*(1*res>0)
     res <- res/sum(res)
